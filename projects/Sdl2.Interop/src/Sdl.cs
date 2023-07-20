@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 using Sdl2.Interop.Exceptions;
@@ -15,14 +16,15 @@ public partial class Sdl : IDisposable
     public Sdl()
     {
         Handle = NativeLibrary.Load(RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "SDL2.dll" :
-            RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ? "libSDL2.dylib" : "libSDL2.so");
+            RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ? "libSDL2.dylib" : "libSDL2.so",
+            Assembly.GetCallingAssembly(), DllImportSearchPath.AssemblyDirectory);
     }
 
     /// <summary>Create a new <see cref="Sdl" /> class with a custom library path name.</summary>
     /// <param name="libraryPath">A <see cref="string" /> with the library path and name.</param>
     public Sdl(string libraryPath)
     {
-        Handle = NativeLibrary.Load(libraryPath);
+        Handle = NativeLibrary.Load(libraryPath, Assembly.GetCallingAssembly(), DllImportSearchPath.AssemblyDirectory);
     }
 
     internal IntPtr Handle { get; }
