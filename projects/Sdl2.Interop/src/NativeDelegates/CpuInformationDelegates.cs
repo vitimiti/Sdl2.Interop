@@ -5,7 +5,7 @@ namespace Sdl2.Interop.NativeDelegates;
 internal static class CpuInformationDelegates
 {
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate int GetCpuCacheLineSize();
+    public delegate int GetCpuCacheLineSizeDelegate();
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate int GetCpuCountDelegate();
@@ -15,77 +15,77 @@ internal static class CpuInformationDelegates
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     [return: MarshalAs(UnmanagedType.I1)]
-    public delegate bool Has3DNow();
+    public delegate bool Has3DNowDelegate();
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     [return: MarshalAs(UnmanagedType.I1)]
-    public delegate bool HasAltiVec();
+    public delegate bool HasAltiVecDelegate();
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     [return: MarshalAs(UnmanagedType.I1)]
-    public delegate bool HasArmSimd();
+    public delegate bool HasArmSimdDelegate();
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     [return: MarshalAs(UnmanagedType.I1)]
-    public delegate bool HasAvx();
+    public delegate bool HasAvx2Delegate();
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     [return: MarshalAs(UnmanagedType.I1)]
-    public delegate bool HasAvx2();
+    public delegate bool HasAvx512FDelegate();
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     [return: MarshalAs(UnmanagedType.I1)]
-    public delegate bool HasAvx512F();
+    public delegate bool HasAvxDelegate();
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     [return: MarshalAs(UnmanagedType.I1)]
-    public delegate bool HasLasx();
+    public delegate bool HasLasxDelegate();
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     [return: MarshalAs(UnmanagedType.I1)]
-    public delegate bool HasLsx();
+    public delegate bool HasLsxDelegate();
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     [return: MarshalAs(UnmanagedType.I1)]
-    public delegate bool HasMmx();
+    public delegate bool HasMmxDelegate();
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     [return: MarshalAs(UnmanagedType.I1)]
-    public delegate bool HasNeon();
+    public delegate bool HasNeonDelegate();
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     [return: MarshalAs(UnmanagedType.I1)]
-    public delegate bool HasRdtsc();
+    public delegate bool HasRdtscDelegate();
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     [return: MarshalAs(UnmanagedType.I1)]
-    public delegate bool HasSse();
+    public delegate bool HasSse2Delegate();
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     [return: MarshalAs(UnmanagedType.I1)]
-    public delegate bool HasSse2();
+    public delegate bool HasSse3Delegate();
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     [return: MarshalAs(UnmanagedType.I1)]
-    public delegate bool HasSse3();
+    public delegate bool HasSse41Delegate();
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     [return: MarshalAs(UnmanagedType.I1)]
-    public delegate bool HasSse41();
+    public delegate bool HasSse42Delegate();
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     [return: MarshalAs(UnmanagedType.I1)]
-    public delegate bool HasSse42();
+    public delegate bool HasSseDelegate();
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate IntPtr SimdAlloc(CULong length);
+    public delegate IntPtr SimdAllocDelegate(CULong length);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate void SimdFree(IntPtr ptr);
+    public delegate void SimdFreeDelegate(IntPtr ptr);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate CULong SimdGetAlignment();
+    public delegate CULong SimdGetAlignmentDelegate();
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate IntPtr SimdRealloc(IntPtr memory, CULong length);
+    public delegate IntPtr SimdReallocDelegate(IntPtr memory, CULong length);
 }

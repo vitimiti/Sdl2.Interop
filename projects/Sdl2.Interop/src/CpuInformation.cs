@@ -25,7 +25,7 @@ public partial class Sdl
     ///     <para>This function is available since SDL 2.0.0.</para>
     /// </remarks>
     public int CpuCacheLineSize =>
-        Common.GetExport<CpuInformationDelegates.GetCpuCacheLineSize>(this, "SDL_GetCPUCacheLineSize",
+        Common.GetExport<CpuInformationDelegates.GetCpuCacheLineSizeDelegate>(this, "SDL_GetCPUCacheLineSize",
             new Version(2, 0, 0))();
 
     /// <summary>Get the amount of RAM configured in the system.</summary>
@@ -52,7 +52,7 @@ public partial class Sdl
     /// <seealso cref="HasSse41" />
     /// <seealso cref="HasSse42" />
     public bool HasRdtsc =>
-        Common.GetExport<CpuInformationDelegates.HasRdtsc>(this, "SDL_HasRDTSC", new Version(2, 0, 0))();
+        Common.GetExport<CpuInformationDelegates.HasRdtscDelegate>(this, "SDL_HasRDTSC", new Version(2, 0, 0))();
 
     /// <summary>Determine whether the CPU has AltiVec features.</summary>
     /// <returns>SDL_TRUE if the CPU has AltiVec features or SDL_FALSE if not.</returns>
@@ -71,7 +71,7 @@ public partial class Sdl
     /// <seealso cref="HasSse41" />
     /// <seealso cref="HasSse42" />
     public bool HasAltiVec =>
-        Common.GetExport<CpuInformationDelegates.HasAltiVec>(this, "SDL_HasAltiVec", new Version(2, 0, 0))();
+        Common.GetExport<CpuInformationDelegates.HasAltiVecDelegate>(this, "SDL_HasAltiVec", new Version(2, 0, 0))();
 
     /// <summary>Determine whether the CPU has MMX features.</summary>
     /// <returns>SDL_TRUE if the CPU has MMX features or SDL_FALSE if not.</returns>
@@ -89,7 +89,8 @@ public partial class Sdl
     /// <seealso cref="HasSse3" />
     /// <seealso cref="HasSse41" />
     /// <seealso cref="HasSse42" />
-    public bool HasMmx => Common.GetExport<CpuInformationDelegates.HasMmx>(this, "SDL_HasMMX", new Version(2, 0, 0))();
+    public bool HasMmx =>
+        Common.GetExport<CpuInformationDelegates.HasMmxDelegate>(this, "SDL_HasMMX", new Version(2, 0, 0))();
 
     /// <summary>Determine whether the CPU has 3DNow! features.</summary>
     /// <returns>SDL_TRUE if the CPU has 3DNow! features or SDL_FALSE if not.</returns>
@@ -108,7 +109,7 @@ public partial class Sdl
     /// <seealso cref="HasSse41" />
     /// <seealso cref="HasSse42" />
     public bool Has3DNow =>
-        Common.GetExport<CpuInformationDelegates.Has3DNow>(this, "SDL_Has3DNow", new Version(2, 0, 0))();
+        Common.GetExport<CpuInformationDelegates.Has3DNowDelegate>(this, "SDL_Has3DNow", new Version(2, 0, 0))();
 
     /// <summary>Determine whether the CPU has SSE features.</summary>
     /// <returns>SDL_TRUE if the CPU has SSE features or SDL_FALSE if not.</returns>
@@ -126,7 +127,8 @@ public partial class Sdl
     /// <seealso cref="HasSse3" />
     /// <seealso cref="HasSse41" />
     /// <seealso cref="HasSse42" />
-    public bool HasSse => Common.GetExport<CpuInformationDelegates.HasSse>(this, "SDL_HasSSE", new Version(2, 0, 0))();
+    public bool HasSse =>
+        Common.GetExport<CpuInformationDelegates.HasSseDelegate>(this, "SDL_HasSSE", new Version(2, 0, 0))();
 
     /// <summary>Determine whether the CPU has SSE2 features.</summary>
     /// <returns>SDL_TRUE if the CPU has SSE2 features or SDL_FALSE if not.</returns>
@@ -145,7 +147,7 @@ public partial class Sdl
     /// <seealso cref="HasSse41" />
     /// <seealso cref="HasSse42" />
     public bool HasSse2 =>
-        Common.GetExport<CpuInformationDelegates.HasSse2>(this, "SDL_HasSSE2", new Version(2, 0, 0))();
+        Common.GetExport<CpuInformationDelegates.HasSse2Delegate>(this, "SDL_HasSSE2", new Version(2, 0, 0))();
 
     /// <summary>Determine whether the CPU has SSE3 features.</summary>
     /// <returns>SDL_TRUE if the CPU has SSE3 features or SDL_FALSE if not.</returns>
@@ -164,7 +166,7 @@ public partial class Sdl
     /// <seealso cref="HasSse41" />
     /// <seealso cref="HasSse42" />
     public bool HasSse3 =>
-        Common.GetExport<CpuInformationDelegates.HasSse3>(this, "SDL_HasSSE3", new Version(2, 0, 0))();
+        Common.GetExport<CpuInformationDelegates.HasSse3Delegate>(this, "SDL_HasSSE3", new Version(2, 0, 0))();
 
     /// <summary>Determine whether the CPU has SSE4.1 features.</summary>
     /// <returns>SDL_TRUE if the CPU has SSE4.1 features or SDL_FALSE if not.</returns>
@@ -183,7 +185,7 @@ public partial class Sdl
     /// <seealso cref="HasSse3" />
     /// <seealso cref="HasSse42" />
     public bool HasSse41 =>
-        Common.GetExport<CpuInformationDelegates.HasSse41>(this, "SDL_HasSSE41", new Version(2, 0, 0))();
+        Common.GetExport<CpuInformationDelegates.HasSse41Delegate>(this, "SDL_HasSSE41", new Version(2, 0, 0))();
 
     /// <summary>Determine whether the CPU has SSE4.2 features.</summary>
     /// <returns>SDL_TRUE if the CPU has SSE4.2 features or SDL_FALSE if not.</returns>
@@ -202,7 +204,7 @@ public partial class Sdl
     /// <seealso cref="HasSse3" />
     /// <seealso cref="HasSse41" />
     public bool HasSse42 =>
-        Common.GetExport<CpuInformationDelegates.HasSse42>(this, "SDL_HasSSE42", new Version(2, 0, 0))();
+        Common.GetExport<CpuInformationDelegates.HasSse42Delegate>(this, "SDL_HasSSE42", new Version(2, 0, 0))();
 
     /// <summary>Determine whether the CPU has AVX features.</summary>
     /// <returns>SDL_TRUE if the CPU has AVX features or SDL_FALSE if not.</returns>
@@ -220,7 +222,8 @@ public partial class Sdl
     /// <seealso cref="HasSse3" />
     /// <seealso cref="HasSse41" />
     /// <seealso cref="HasSse42" />
-    public bool HasAvx => Common.GetExport<CpuInformationDelegates.HasAvx>(this, "SDL_HasAVX", new Version(2, 0, 2))();
+    public bool HasAvx =>
+        Common.GetExport<CpuInformationDelegates.HasAvxDelegate>(this, "SDL_HasAVX", new Version(2, 0, 2))();
 
     /// <summary>Determine whether the CPU has AVX2 features.</summary>
     /// <returns>SDL_TRUE if the CPU has AVX2 features or SDL_FALSE if not.</returns>
@@ -239,7 +242,7 @@ public partial class Sdl
     /// <seealso cref="HasSse41" />
     /// <seealso cref="HasSse42" />
     public bool HasAvx2 =>
-        Common.GetExport<CpuInformationDelegates.HasAvx2>(this, "SDL_HasAVX2", new Version(2, 0, 4))();
+        Common.GetExport<CpuInformationDelegates.HasAvx2Delegate>(this, "SDL_HasAVX2", new Version(2, 0, 4))();
 
     /// <summary>Determine whether the CPU has AVX-512F (foundation) features.</summary>
     /// <returns>SDL_TRUE if the CPU has AVX-512F features or SDL_FALSE if not.</returns>
@@ -249,7 +252,7 @@ public partial class Sdl
     /// </remarks>
     /// <seealso cref="HasAvx" />
     public bool HasAvx512F =>
-        Common.GetExport<CpuInformationDelegates.HasAvx512F>(this, "SDL_HasAVX512F", new Version(2, 0, 9))();
+        Common.GetExport<CpuInformationDelegates.HasAvx512FDelegate>(this, "SDL_HasAVX512F", new Version(2, 0, 9))();
 
     /// <summary>Determine whether the CPU has ARM SIMD (ARMv6) features.</summary>
     /// <returns>SDL_TRUE if the CPU has ARM SIMD features or SDL_FALSE if not.</returns>
@@ -260,7 +263,7 @@ public partial class Sdl
     /// </remarks>
     /// <seealso cref="HasNeon" />
     public bool HasArmSimd =>
-        Common.GetExport<CpuInformationDelegates.HasArmSimd>(this, "SDL_HasARMSIMD", new Version(2, 0, 12))();
+        Common.GetExport<CpuInformationDelegates.HasArmSimdDelegate>(this, "SDL_HasARMSIMD", new Version(2, 0, 12))();
 
     /// <summary>Determine whether the CPU has NEON (ARM SIMD) features.</summary>
     /// <returns>SDL_TRUE if the CPU has ARM NEON features or SDL_FALSE if not.</returns>
@@ -269,7 +272,7 @@ public partial class Sdl
     ///     <para>This function is available since SDL 2.0.6.</para>
     /// </remarks>
     public bool HasNeon =>
-        Common.GetExport<CpuInformationDelegates.HasNeon>(this, "SDL_HasNEON", new Version(2, 0, 6))();
+        Common.GetExport<CpuInformationDelegates.HasNeonDelegate>(this, "SDL_HasNEON", new Version(2, 0, 6))();
 
     /// <summary>Determine whether the CPU has LSX (LOONGARCH SIMD) features.</summary>
     /// <returns>SDL_TRUE if the CPU has LOONGARCH LSX features or SDL_FALSE if not.</returns>
@@ -278,7 +281,7 @@ public partial class Sdl
     ///     <para>This function is available since SDL 2.24.0.</para>
     /// </remarks>
     public bool HasLsx =>
-        Common.GetExport<CpuInformationDelegates.HasLsx>(this, "SDL_HasLSX", new Version(2, 24, 0))();
+        Common.GetExport<CpuInformationDelegates.HasLsxDelegate>(this, "SDL_HasLSX", new Version(2, 24, 0))();
 
     /// <summary>Determine whether the CPU has LASX (LOONGARCH SIMD) features.</summary>
     /// <returns>SDL_TRUE if the CPU has LOONGARCH LASX features or SDL_FALSE if not.</returns>
@@ -287,7 +290,7 @@ public partial class Sdl
     ///     <para>This function is available since SDL 2.24.0.</para>
     /// </remarks>
     public bool HasLasx =>
-        Common.GetExport<CpuInformationDelegates.HasLasx>(this, "SDL_HasLASX", new Version(2, 24, 0))();
+        Common.GetExport<CpuInformationDelegates.HasLasxDelegate>(this, "SDL_HasLASX", new Version(2, 24, 0))();
 
     /// <summary>Report the alignment this system needs for SIMD allocations.</summary>
     /// <returns>A <see cref="uint" /> with the alignment in bytes needed for available, known SIMD instructions.</returns>
@@ -302,7 +305,7 @@ public partial class Sdl
     ///     <para>This function is available since SDL 2.0.10.</para>
     /// </remarks>
     public uint SimdAlignment =>
-        (uint)Common.GetExport<CpuInformationDelegates.SimdGetAlignment>(this, "SDL_SIMDGetAlignment",
+        (uint)Common.GetExport<CpuInformationDelegates.SimdGetAlignmentDelegate>(this, "SDL_SIMDGetAlignment",
             new Version(2, 0, 10))().Value;
 
     /// <summary>Allocate memory in a SIMD-friendly way.</summary>
@@ -339,7 +342,7 @@ public partial class Sdl
     public Simd SimdAllocate(uint length)
     {
         return new Simd(this,
-            Common.GetExport<CpuInformationDelegates.SimdAlloc>(this, "SDL_SIMDAlloc", new Version(2, 0, 10))(
+            Common.GetExport<CpuInformationDelegates.SimdAllocDelegate>(this, "SDL_SIMDAlloc", new Version(2, 0, 10))(
                 new CULong(length)), length);
     }
 }
