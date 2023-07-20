@@ -44,10 +44,25 @@ public partial class Sdl
     /// <remarks>This property is available since SDL 2.26.0.</remarks>
     public string PrimarySelectionText
     {
-        get => Common.GetExport<ClipboardDelegates.GetPrimarySelectionTextDelegate>(this, "SDL_GetPrimarySelectionText",
-            new Version(2, 26, 0))();
-        set => Common.GetExport<ClipboardDelegates.SetPrimarySelectionTextDelegate>(this, "SDL_SetPrimarySelectionText",
-            new Version(2, 26, 0))(value);
+        get
+        {
+            string result = Common.GetExport<ClipboardDelegates.GetPrimarySelectionTextDelegate>(this,
+                "SDL_GetPrimarySelectionText",
+                new Version(2, 26, 0))();
+
+            return result == string.Empty ? throw new NativeException(LastError) : result;
+        }
+        set
+        {
+            int errorCode = Common.GetExport<ClipboardDelegates.SetPrimarySelectionTextDelegate>(this,
+                "SDL_SetPrimarySelectionText",
+                new Version(2, 26, 0))(value);
+
+            if (errorCode < 0)
+            {
+                throw new NativeException(LastError, errorCode);
+            }
+        }
     }
 
     /// <summary>Query whether the primary selection exists and contains a non-empty text string.</summary>

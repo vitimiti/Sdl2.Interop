@@ -7,6 +7,7 @@ using Xunit;
 
 namespace Sdl2.Interop.UnitTests;
 
+[Collection(Collections.Library)]
 public class SubsystemsTests : IDisposable
 {
     private readonly Sdl _sdl;
