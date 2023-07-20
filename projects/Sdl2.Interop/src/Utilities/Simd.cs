@@ -13,7 +13,7 @@ public sealed class Simd : IDisposable
     private readonly IntPtr _handle;
     private readonly Sdl _sdl;
 
-    internal Simd(Sdl sdl, IntPtr ptr)
+    internal Simd(Sdl sdl, IntPtr ptr, uint length)
     {
         _sdl = sdl;
         _handle = ptr;
@@ -21,11 +21,21 @@ public sealed class Simd : IDisposable
         {
             throw new NativeException(_sdl.LastError);
         }
+
+        Length = length;
     }
 
     /// <summary>Gets a value that indicates whether the handle is invalid.</summary>
     /// <returns><see langword="true" /> if the handle is not valid; otherwise, <see langword="false" />.</returns>
     public bool IsInvalid => _handle == IntPtr.Zero || _handle == new IntPtr(-1);
+
+    /// <summary>The length, in bytes, of the block to allocated.</summary>
+    /// <returns>A <see cref="uint" /> with the length, in bytes.</returns>
+    /// <remarks>
+    ///     <para>The actual allocated block might be larger due to padding, etc.</para>
+    ///     <para>A <see cref="Length" /> of 0 means you own nothing of the internal handle.</para>
+    /// </remarks>
+    public uint Length { get; }
 
     /// <summary>The method to safely dispose the internal handle.</summary>
     public void Dispose()
@@ -64,7 +74,7 @@ public sealed class Simd : IDisposable
     {
         return new Simd(_sdl,
             Common.GetExport<CpuInformationDelegates.SimdRealloc>(_sdl, "SDL_SIMDRealloc", new Version(2, 0, 14))(
-                _handle, new CULong(length)));
+                _handle, new CULong(length)), length);
     }
 
     /// <summary>Retrieve the internal handle.</summary>

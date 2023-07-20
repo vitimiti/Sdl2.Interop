@@ -340,6 +340,6 @@ public partial class Sdl
     {
         return new Simd(this,
             Common.GetExport<CpuInformationDelegates.SimdAlloc>(this, "SDL_SIMDAlloc", new Version(2, 0, 10))(
-                new CULong(length)));
+                new CULong(length)), length);
     }
 }
