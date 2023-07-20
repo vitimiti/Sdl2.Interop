@@ -6,7 +6,7 @@ namespace Sdl2.Interop.Utilities;
 
 /// <summary>The wrapper class to manage SDL subsystems.</summary>
 /// <remarks>
-///     <para>This class MUST be initialized through <see cref="Sdl.Init" />.</para>
+///     <para>This class MUST be initialized through <see cref="Sdl.Initialize" />.</para>
 ///     <para>This class implements the <see cref="IDisposable" /> interface.</para>
 /// </remarks>
 public sealed class Subsystems : IDisposable

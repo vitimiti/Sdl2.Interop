@@ -33,7 +33,7 @@ Console.WriteLine($"{"Has LSX",leftAlignment} {sdl.HasLsx,rightAlignment}");
 Console.WriteLine($"{"Has LASX",leftAlignment} {sdl.HasLasx,rightAlignment}\n");
 
 // Initialize SDL safely.
-using Subsystems subsystems = sdl.Init(SdlInit.Video);
+using Subsystems subsystems = sdl.Initialize(SdlInit.Video);
 
 // Show the initialized subsystems.
-Console.WriteLine($"Initialized subsystems [{sdl.WasInit()}]");
+Console.WriteLine($"Initialized subsystems [{sdl.WasInitialized()}]");

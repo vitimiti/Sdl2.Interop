@@ -9,7 +9,7 @@ public partial class Sdl
     /// <summary>Get the version of SDL that is linked against your program.</summary>
     /// <returns>A <see cref="Version" /> that contains the version information.</returns>
     /// <remarks>
-    ///     <para>This function may be called safely at any time, even before <see cref="Init" />.</para>
+    ///     <para>This function may be called safely at any time, even before <see cref="Initialize" />.</para>
     ///     <para>This property is available since SDL 2.0.0.</para>
     /// </remarks>
     /// <seealso cref="Revision" />

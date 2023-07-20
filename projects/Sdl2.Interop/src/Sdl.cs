@@ -54,13 +54,13 @@ public partial class Sdl : IDisposable
     ///     <para>
     ///         The file I/O (for example: SDL_RWFromFile) and threading (SDL_CreateThread) subsystems are initialized by
     ///         default. Message boxes (SDL_ShowSimpleMessageBox) also attempt to work without initializing the video
-    ///         subsystem, in hopes of being useful in showing an error dialog when <see cref="Init" /> fails. You must
+    ///         subsystem, in hopes of being useful in showing an error dialog when <see cref="Initialize" /> fails. You must
     ///         specifically initialize other subsystems if you use them in your application.
     ///     </para>
     ///     <para>Logging (such as SDL_Log) works without initialization, too.</para>
     ///     <para>This function is available since SDL 2.0.0.</para>
     /// </remarks>
-    public Subsystems Init(SdlInit flags)
+    public Subsystems Initialize(SdlInit flags)
     {
         int errorCode =
             Common.GetExport<SdlDelegates.InitDelegate>(this, "SDL_Init", new Version(2, 0, 0))(
@@ -77,7 +77,7 @@ public partial class Sdl : IDisposable
     /// <summary>Get the subsystem flags that are initialized.</summary>
     /// <returns>A <see cref="SdlInit" /> <see cref="Enum" /> with the initialized subsystem flags.</returns>
     /// <remarks>This function is available since SDL 2.0.0.</remarks>
-    public SdlInit WasInit()
+    public SdlInit WasInitialized()
     {
         return Common.GetExport<SdlDelegates.WasInitDelegate>(this, "SDL_WasInit", new Version(2, 0, 0))(
             SdlInit.None);

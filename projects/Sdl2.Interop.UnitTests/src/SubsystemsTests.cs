@@ -20,41 +20,41 @@ public class SubsystemsTests
     [MemberData(nameof(SubsystemsData))]
     public void InitializingWorks(SdlInit expected, SdlInit actual)
     {
-        using (Subsystems subsystems = _sdl.Init(actual))
+        using (Subsystems subsystems = _sdl.Initialize(actual))
         {
-            Assert.Equal(expected, _sdl.WasInit());
+            Assert.Equal(expected, _sdl.WasInitialized());
         }
 
-        Assert.Equal(SdlInit.None, _sdl.WasInit());
+        Assert.Equal(SdlInit.None, _sdl.WasInitialized());
     }
 
     [Theory]
     [MemberData(nameof(SubsystemsData))]
     public void InitializingPostInitialInitializationWorks(SdlInit expected, SdlInit actual)
     {
-        using (Subsystems subsystems = _sdl.Init(SdlInit.Timer))
+        using (Subsystems subsystems = _sdl.Initialize(SdlInit.Timer))
         {
             subsystems.Stop(SdlInit.Timer);
-            Assert.Equal(SdlInit.None, _sdl.WasInit());
+            Assert.Equal(SdlInit.None, _sdl.WasInitialized());
             subsystems.Start(actual);
-            Assert.Equal(expected, _sdl.WasInit());
+            Assert.Equal(expected, _sdl.WasInitialized());
         }
 
-        Assert.Equal(SdlInit.None, _sdl.WasInit());
+        Assert.Equal(SdlInit.None, _sdl.WasInitialized());
     }
 
     [Theory]
     [MemberData(nameof(SubsystemsData))]
     public void StoppingPostInitializationWorks(SdlInit expected, SdlInit actual)
     {
-        using (Subsystems subsystems = _sdl.Init(actual))
+        using (Subsystems subsystems = _sdl.Initialize(actual))
         {
-            Assert.Equal(expected, _sdl.WasInit());
+            Assert.Equal(expected, _sdl.WasInitialized());
             subsystems.Stop(actual);
-            Assert.Equal(SdlInit.None, _sdl.WasInit());
+            Assert.Equal(SdlInit.None, _sdl.WasInitialized());
         }
 
-        Assert.Equal(SdlInit.None, _sdl.WasInit());
+        Assert.Equal(SdlInit.None, _sdl.WasInitialized());
     }
 
     public static IEnumerable<object[]> SubsystemsData()

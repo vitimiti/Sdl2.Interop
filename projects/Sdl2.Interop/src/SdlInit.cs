@@ -1,6 +1,6 @@
 namespace Sdl2.Interop;
 
-/// <summary>These are the flags which may be passed to <see cref="Sdl.Init" />.</summary>
+/// <summary>These are the flags which may be passed to <see cref="Sdl.Initialize" />.</summary>
 /// <remarks>You should specify the subsystems which you will be using in your application.</remarks>
 [Flags]
 public enum SdlInit : uint
