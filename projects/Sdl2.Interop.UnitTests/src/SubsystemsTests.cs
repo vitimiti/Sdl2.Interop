@@ -7,13 +7,18 @@ using Xunit;
 
 namespace Sdl2.Interop.UnitTests;
 
-public class SubsystemsTests
+public class SubsystemsTests : IDisposable
 {
     private readonly Sdl _sdl;
 
     public SubsystemsTests()
     {
         _sdl = new Sdl();
+    }
+
+    public void Dispose()
+    {
+        _sdl.Dispose();
     }
 
     [Theory]
