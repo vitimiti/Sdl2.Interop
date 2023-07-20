@@ -140,7 +140,8 @@ public class ClipboardTests : IDisposable
         }
         else
         {
-            Assert.Throws<MinimumVersionRequiredNotMatchedException>(() => _sdl.PrimarySelectionText = _testText);
+            Assert.Throws<MinimumVersionRequiredNotMatchedException>(() =>
+                _sdl.PrimarySelectionText = _testText);
         }
     }
 
@@ -159,7 +160,8 @@ public class ClipboardTests : IDisposable
         }
         else
         {
-            Assert.Throws<MinimumVersionRequiredNotMatchedException>(() => _ = _sdl.HasPrimarySelectionText);
+            Assert.Throws<MinimumVersionRequiredNotMatchedException>(() =>
+                _ = _sdl.HasPrimarySelectionText);
         }
     }
 }

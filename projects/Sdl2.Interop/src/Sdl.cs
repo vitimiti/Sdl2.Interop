@@ -9,7 +9,10 @@ using Sdl2.Interop.Utilities;
 namespace Sdl2.Interop;
 
 /// <summary>Load the native SDL library.</summary>
-/// <remarks>This is a partial class and the sum of all the partial units will complete the functionality from SDL.</remarks>
+/// <remarks>
+///     <para>This is a partial class and the sum of all the partial units will complete the functionality from SDL.</para>
+///     <para>This class implements the <see cref="IDisposable" /> interface.</para>
+/// </remarks>
 public partial class Sdl : IDisposable
 {
     /// <summary>Create a new <see cref="Sdl" /> class with default library names.</summary>

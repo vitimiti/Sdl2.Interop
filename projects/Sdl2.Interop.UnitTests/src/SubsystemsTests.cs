@@ -26,7 +26,7 @@ public class SubsystemsTests : IDisposable
     [MemberData(nameof(SubsystemsData))]
     public void InitializingWorks(Sdl.InitializeFlags expected, Sdl.InitializeFlags actual)
     {
-        using (Subsystems subsystems = _sdl.Initialize(actual))
+        using (_sdl.Initialize(actual))
         {
             Assert.Equal(expected, _sdl.WasInitialized());
         }

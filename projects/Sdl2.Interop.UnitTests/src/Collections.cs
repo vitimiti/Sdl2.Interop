@@ -1,6 +1,6 @@
 namespace Sdl2.Interop.UnitTests;
 
-internal struct Collections
+public struct Collections
 {
-    public const string Library = "LibraryCollection";
+    public const string Library = "Library Collection";
 }
