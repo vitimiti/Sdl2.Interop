@@ -14,29 +14,16 @@ sdl.LogSetOutputFunction((data, category, priority, message) =>
 {
     DateTime dateTime = (DateTime)data;
 
-    switch (priority)
+    Console.ForegroundColor = priority switch
     {
-        case Sdl.LogPriority.Verbose:
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
-            break;
-        case Sdl.LogPriority.Debug:
-            Console.ForegroundColor = ConsoleColor.Green;
-            break;
-        case Sdl.LogPriority.Information:
-            Console.ForegroundColor = ConsoleColor.Blue;
-            break;
-        case Sdl.LogPriority.Warning:
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            break;
-        case Sdl.LogPriority.Error:
-            Console.ForegroundColor = ConsoleColor.Red;
-            break;
-        case Sdl.LogPriority.Critical:
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            break;
-        default:
-            throw new ArgumentOutOfRangeException(nameof(priority), priority, null);
-    }
+        Sdl.LogPriority.Verbose => ConsoleColor.DarkGreen,
+        Sdl.LogPriority.Debug => ConsoleColor.Green,
+        Sdl.LogPriority.Information => ConsoleColor.Blue,
+        Sdl.LogPriority.Warning => ConsoleColor.Yellow,
+        Sdl.LogPriority.Error => ConsoleColor.Red,
+        Sdl.LogPriority.Critical => ConsoleColor.DarkRed,
+        _ => throw new ArgumentOutOfRangeException(nameof(priority), priority, null)
+    };
 
     Console.WriteLine(
         $"[{dateTime.Year:0000}/{dateTime.Month:00}/{dateTime.Day:00} - {dateTime.Hour:00}:{dateTime.Minute:00}:{dateTime.Second:00}] [{(MyCategories)category}] - {message}");
