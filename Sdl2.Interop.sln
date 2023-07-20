@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sdl2.Interop", "projects\Sdl2.Interop\Sdl2.Interop.csproj", "{283CEDEA-005B-43C1-948D-364BB78F9047}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{21DB7DDC-09C8-4C95-B8D5-9E5FF0D3618D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sdl2.Interop.UnitTests", "projects\Sdl2.Interop.UnitTests\Sdl2.Interop.UnitTests.csproj", "{6E3D40F1-0577-4CA7-A9D7-E6DE8F2E0CCA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{283CEDEA-005B-43C1-948D-364BB78F9047}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{283CEDEA-005B-43C1-948D-364BB78F9047}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{283CEDEA-005B-43C1-948D-364BB78F9047}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{283CEDEA-005B-43C1-948D-364BB78F9047}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E3D40F1-0577-4CA7-A9D7-E6DE8F2E0CCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E3D40F1-0577-4CA7-A9D7-E6DE8F2E0CCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E3D40F1-0577-4CA7-A9D7-E6DE8F2E0CCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E3D40F1-0577-4CA7-A9D7-E6DE8F2E0CCA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+	EndGlobalSection
+EndGlobal

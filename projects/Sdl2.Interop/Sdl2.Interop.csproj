@@ -1,0 +1,55 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <!--    Common options-->
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <DefineTrace>true</DefineTrace>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+
+    <!--    Debug options-->
+    <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+        <DefineDebug>true</DefineDebug>
+        <Optimize>false</Optimize>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+    </PropertyGroup>
+
+    <!--    Release options-->
+    <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+        <Optimize>true</Optimize>
+        <DebugSymbols>false</DebugSymbols>
+        <DebugType>none</DebugType>
+    </PropertyGroup>
+
+    <!--    The NuGet options-->
+    <PropertyGroup>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Version>0.0.1</Version>
+        <Title>Sdl2.Interop</Title>
+        <Description>A library to interop with SDL2 native libraries of all versions.</Description>
+        <PackageProjectUrl>https://www.libsdl.org/</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/vitimiti/Sdl2.Interop</RepositoryUrl>
+        <RepositoryType>Git</RepositoryType>
+        <PackageTags>SDL2;Interop;Marshal</PackageTags>
+        <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Content Include="..\..\README.md">
+            <Pack>true</Pack>
+            <PackagePath>docs\</PackagePath>
+            <Visible>false</Visible>
+        </Content>
+
+        <Content Include="..\..\LICENSE.md">
+            <Pack>true</Pack>
+            <PackagePath>docs\</PackagePath>
+            <Visible>false</Visible>
+        </Content>
+    </ItemGroup>
+
+</Project>
