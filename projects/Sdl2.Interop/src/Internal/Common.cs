@@ -20,19 +20,19 @@ internal static class Common
         }
     }
 
-    public static SdlInit RemoveUnusedInitFlags(Sdl sdl, SdlInit flags)
+    public static Sdl.InitializeFlags RemoveUnusedInitFlags(Sdl sdl, Sdl.InitializeFlags flags)
     {
-        SdlInit finalFlags = flags;
+        Sdl.InitializeFlags finalFlags = flags;
 #pragma warning disable CS0618
-        if (sdl.Version > new Version(2, 0, 4) && flags.HasFlag(SdlInit.NoParachute))
+        if (sdl.Version > new Version(2, 0, 4) && flags.HasFlag(Sdl.InitializeFlags.NoParachute))
         {
-            finalFlags &= ~SdlInit.NoParachute;
+            finalFlags &= ~Sdl.InitializeFlags.NoParachute;
 #pragma warning restore CS0618
         }
 
-        if (sdl.Version < new Version(2, 0, 9) && flags.HasFlag(SdlInit.Sensor))
+        if (sdl.Version < new Version(2, 0, 9) && flags.HasFlag(Sdl.InitializeFlags.Sensor))
         {
-            finalFlags &= ~SdlInit.Sensor;
+            finalFlags &= ~Sdl.InitializeFlags.Sensor;
         }
 
         return finalFlags;

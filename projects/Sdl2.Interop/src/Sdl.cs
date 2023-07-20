@@ -47,7 +47,7 @@ public partial class Sdl : IDisposable
 
     // TODO: Change native function signatures to C# ones.
     /// <summary>Initialize the SDL library.</summary>
-    /// <param name="flags">The subsystem initialization flags from <see cref="SdlInit" />.</param>
+    /// <param name="flags">The subsystem initialization flags from <see cref="InitializeFlags" />.</param>
     /// <returns>A new <see cref="Subsystems" /> class.</returns>
     /// <exception cref="NativeException">When SDL is unable to initialize with the given subsystem <paramref name="flags" />.</exception>
     /// <remarks>
@@ -60,7 +60,7 @@ public partial class Sdl : IDisposable
     ///     <para>Logging (such as SDL_Log) works without initialization, too.</para>
     ///     <para>This function is available since SDL 2.0.0.</para>
     /// </remarks>
-    public Subsystems Initialize(SdlInit flags)
+    public Subsystems Initialize(InitializeFlags flags)
     {
         int errorCode =
             Common.GetExport<SdlDelegates.InitDelegate>(this, "SDL_Init", new Version(2, 0, 0))(
@@ -75,11 +75,11 @@ public partial class Sdl : IDisposable
     }
 
     /// <summary>Get the subsystem flags that are initialized.</summary>
-    /// <returns>A <see cref="SdlInit" /> <see cref="Enum" /> with the initialized subsystem flags.</returns>
+    /// <returns>A <see cref="InitializeFlags" /> <see cref="Enum" /> with the initialized subsystem flags.</returns>
     /// <remarks>This function is available since SDL 2.0.0.</remarks>
-    public SdlInit WasInitialized()
+    public InitializeFlags WasInitialized()
     {
         return Common.GetExport<SdlDelegates.WasInitDelegate>(this, "SDL_WasInit", new Version(2, 0, 0))(
-            SdlInit.None);
+            InitializeFlags.None);
     }
 }

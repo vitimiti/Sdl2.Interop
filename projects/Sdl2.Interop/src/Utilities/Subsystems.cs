@@ -37,10 +37,10 @@ public sealed class Subsystems : IDisposable
     }
 
     /// <summary>Initialize SDL subsystems after first initialization.</summary>
-    /// <param name="flags">The <see cref="SdlInit" /> flags to initialize.</param>
+    /// <param name="flags">The <see cref="Sdl.InitializeFlags" /> flags to initialize.</param>
     /// <exception cref="NativeException">When SDL is unable to initialize.</exception>
     /// <remarks>This function is available since SDL 2.0.0.</remarks>
-    public void Start(SdlInit flags)
+    public void Start(Sdl.InitializeFlags flags)
     {
         int errorCode =
             Common.GetExport<SdlDelegates.InitSubSystemDelegate>(_sdl, "SDL_InitSubSystem",
@@ -53,9 +53,9 @@ public sealed class Subsystems : IDisposable
     }
 
     /// <summary>Stop SDL subsystems after first initialization.</summary>
-    /// <param name="flags">The <see cref="SdlInit" /> flags to stop.</param>
+    /// <param name="flags">The <see cref="Sdl.InitializeFlags" /> flags to stop.</param>
     /// <remarks>This function is available since SDL 2.0.0.</remarks>
-    public void Stop(SdlInit flags)
+    public void Stop(Sdl.InitializeFlags flags)
     {
         Common.GetExport<SdlDelegates.QuitSubSystemDelegate>(_sdl, "SDL_QuitSubSystem", new Version(2, 0, 0))(
             Common.RemoveUnusedInitFlags(_sdl, flags));
