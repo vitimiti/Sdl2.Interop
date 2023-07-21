@@ -8,6 +8,7 @@ using Sdl sdl = new();
 sdl.LogSetPriority(MyCategories.Library, Sdl.LogPriority.Information);
 sdl.LogSetPriority(MyCategories.Subsystem, Sdl.LogPriority.Information);
 sdl.LogSetPriority(MyCategories.Cpu, Sdl.LogPriority.Verbose);
+sdl.LogSetPriority(MyCategories.Power, Sdl.LogPriority.Information);
 
 // Set the log output function.
 sdl.LogSetOutputFunction((data, category, priority, message) =>
@@ -32,7 +33,7 @@ sdl.LogSetOutputFunction((data, category, priority, message) =>
 }, DateTime.Now);
 
 // Get the library version and running platform.
-sdl.LogInformation(MyCategories.Library, $"Running SDLv {sdl.Version} [{sdl.Revision}] on {sdl.Platform}\n");
+sdl.LogInformation(MyCategories.Library, $"Running SDLv {sdl.Version} [{sdl.Revision}] on {sdl.Platform}");
 
 // Print system information.
 const int leftAlignment = -20;
@@ -57,7 +58,18 @@ sdl.LogVerbose(MyCategories.Cpu, $"{"Has AVX-512F",leftAlignment} {sdl.HasAvx512
 sdl.LogVerbose(MyCategories.Cpu, $"{"Has ARM SIMD",leftAlignment} {sdl.HasArmSimd,rightAlignment}");
 sdl.LogVerbose(MyCategories.Cpu, $"{"Has NEON",leftAlignment} {sdl.HasNeon,rightAlignment}");
 sdl.LogVerbose(MyCategories.Cpu, $"{"Has LSX",leftAlignment} {sdl.HasLsx,rightAlignment}");
-sdl.LogVerbose(MyCategories.Cpu, $"{"Has LASX",leftAlignment} {sdl.HasLasx,rightAlignment}\n");
+sdl.LogVerbose(MyCategories.Cpu, $"{"Has LASX",leftAlignment} {sdl.HasLasx,rightAlignment}");
+
+// Print power information.
+sdl.LogInformation(MyCategories.Power, "Power information:");
+Sdl.PowerState powerState = sdl.GetPowerInformation(out int batterySecondsLeft, out int batteryPercentageLeft);
+sdl.LogInformation(MyCategories.Power, $"{"Power state",leftAlignment} {powerState,rightAlignment}");
+sdl.LogInformation(MyCategories.Power, "Battery information:");
+sdl.LogInformation(MyCategories.Power,
+    $"{"Seconds Left",leftAlignment} {(batterySecondsLeft == -1 ? "Unknown" : batterySecondsLeft),rightAlignment}");
+
+sdl.LogInformation(MyCategories.Power,
+    $"{"Percentage Left",leftAlignment} {(batteryPercentageLeft == -1 ? "Unknown" : batteryPercentageLeft),rightAlignment}");
 
 // Initialize SDL safely.
 using Subsystems subsystems = sdl.Initialize(Sdl.InitializeFlags.Video);
@@ -69,5 +81,6 @@ internal enum MyCategories
 {
     Library = Sdl.LogCategory.Custom,
     Subsystem,
-    Cpu
+    Cpu,
+    Power
 }
