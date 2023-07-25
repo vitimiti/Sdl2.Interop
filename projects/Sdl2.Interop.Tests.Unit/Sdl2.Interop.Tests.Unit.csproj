@@ -5,6 +5,8 @@
         <Nullable>enable</Nullable>
 
         <IsPackable>false</IsPackable>
+
+        <RootNamespace>Sdl2.Interop.Tests.Unit</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

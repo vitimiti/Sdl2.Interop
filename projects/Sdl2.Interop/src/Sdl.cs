@@ -48,6 +48,7 @@ public partial class Sdl : IDisposable
     private void ReleaseUnmanagedResources()
     {
         NativeLibrary.Free(Handle);
+        s_instance = null;
     }
 
     /// <summary>The <see cref="Sdl" /> destructor.</summary>

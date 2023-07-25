@@ -4,7 +4,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sdl2.Interop", "projects\Sd
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{21DB7DDC-09C8-4C95-B8D5-9E5FF0D3618D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sdl2.Interop.UnitTests", "projects\Sdl2.Interop.UnitTests\Sdl2.Interop.UnitTests.csproj", "{6E3D40F1-0577-4CA7-A9D7-E6DE8F2E0CCA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sdl2.Interop.Tests.Unit", "projects\Sdl2.Interop.Tests.Unit\Sdl2.Interop.Tests.Unit.csproj", "{6E3D40F1-0577-4CA7-A9D7-E6DE8F2E0CCA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sdl2.Interop.Examples.Example001.HelloWorld", "projects\Examples\Sdl2.Interop.Examples.Example001.HelloWorld\Sdl2.Interop.Examples.Example001.HelloWorld.csproj", "{13F72892-858E-4714-AFD0-EF8F45AEB7CC}"
 EndProject

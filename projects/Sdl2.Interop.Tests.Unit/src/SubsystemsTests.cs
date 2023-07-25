@@ -5,62 +5,60 @@ using Sdl2.Interop.Utilities;
 
 using Xunit;
 
-namespace Sdl2.Interop.UnitTests;
+namespace Sdl2.Interop.Tests.Unit;
 
 [Collection(Collections.Library)]
-public class SubsystemsTests : IDisposable
+public class SubsystemsTests
 {
-    private readonly Sdl _sdl;
+    private readonly SdlFixture _fixture;
 
-    public SubsystemsTests()
+    public SubsystemsTests(SdlFixture fixture)
     {
-        _sdl = new Sdl();
-    }
-
-    public void Dispose()
-    {
-        _sdl.Dispose();
+        _fixture = fixture;
     }
 
     [Theory]
     [MemberData(nameof(SubsystemsData))]
-    public void InitializingWorks(Sdl.InitializeFlags expected, Sdl.InitializeFlags actual)
+    public void SdlInitialize_ShouldInitializeSubsystems_WhenSubsystemsArePassed(Sdl.InitializeFlags expected,
+        Sdl.InitializeFlags actual)
     {
-        using (_sdl.Initialize(actual))
+        using (_fixture.Sdl.Initialize(actual))
         {
-            Assert.Equal(expected, _sdl.WasInitialized());
+            Assert.Equal(expected, _fixture.Sdl.WasInitialized());
         }
 
-        Assert.Equal(Sdl.InitializeFlags.None, _sdl.WasInitialized());
+        Assert.Equal(Sdl.InitializeFlags.None, _fixture.Sdl.WasInitialized());
     }
 
     [Theory]
     [MemberData(nameof(SubsystemsData))]
-    public void InitializingPostInitialInitializationWorks(Sdl.InitializeFlags expected, Sdl.InitializeFlags actual)
+    public void SdlSubsystemsStart_ShouldInitializeSubsystems_WhenAlreadyInitialized(Sdl.InitializeFlags expected,
+        Sdl.InitializeFlags actual)
     {
-        using (Subsystems subsystems = _sdl.Initialize(Sdl.InitializeFlags.Timer))
+        using (Subsystems subsystems = _fixture.Sdl.Initialize(Sdl.InitializeFlags.Timer))
         {
             subsystems.Stop(Sdl.InitializeFlags.Timer);
-            Assert.Equal(Sdl.InitializeFlags.None, _sdl.WasInitialized());
+            Assert.Equal(Sdl.InitializeFlags.None, _fixture.Sdl.WasInitialized());
             subsystems.Start(actual);
-            Assert.Equal(expected, _sdl.WasInitialized());
+            Assert.Equal(expected, _fixture.Sdl.WasInitialized());
         }
 
-        Assert.Equal(Sdl.InitializeFlags.None, _sdl.WasInitialized());
+        Assert.Equal(Sdl.InitializeFlags.None, _fixture.Sdl.WasInitialized());
     }
 
     [Theory]
     [MemberData(nameof(SubsystemsData))]
-    public void StoppingPostInitializationWorks(Sdl.InitializeFlags expected, Sdl.InitializeFlags actual)
+    public void SdlSubsystemsStop_ShouldStopSubsystemsWithoutLibraryTermination_WhenAlreadyInitialized(
+        Sdl.InitializeFlags expected, Sdl.InitializeFlags actual)
     {
-        using (Subsystems subsystems = _sdl.Initialize(actual))
+        using (Subsystems subsystems = _fixture.Sdl.Initialize(actual))
         {
-            Assert.Equal(expected, _sdl.WasInitialized());
+            Assert.Equal(expected, _fixture.Sdl.WasInitialized());
             subsystems.Stop(actual);
-            Assert.Equal(Sdl.InitializeFlags.None, _sdl.WasInitialized());
+            Assert.Equal(Sdl.InitializeFlags.None, _fixture.Sdl.WasInitialized());
         }
 
-        Assert.Equal(Sdl.InitializeFlags.None, _sdl.WasInitialized());
+        Assert.Equal(Sdl.InitializeFlags.None, _fixture.Sdl.WasInitialized());
     }
 
     public static IEnumerable<object[]> SubsystemsData()
@@ -80,7 +78,7 @@ public class SubsystemsTests : IDisposable
         };
         yield return new object[] { Sdl.InitializeFlags.Events, Sdl.InitializeFlags.Events };
 
-        using Sdl sdl = new();
+        using Sdl sdl = Sdl.GetInstance();
         if (sdl.Version >= new Version(2, 0, 9))
         {
             yield return new object[]

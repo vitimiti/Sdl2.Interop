@@ -1,4 +1,4 @@
-namespace Sdl2.Interop.UnitTests;
+namespace Sdl2.Interop.Tests.Unit;
 
 public struct Collections
 {
