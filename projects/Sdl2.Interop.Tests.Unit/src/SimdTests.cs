@@ -1,3 +1,5 @@
+using FluentAssertions;
+
 using Sdl2.Interop.Utilities;
 
 using Xunit;
@@ -20,7 +22,7 @@ public class SimdTests
     public void SdlSimdAllocate_ShouldAllocateMemory_WhenGivenALength()
     {
         using Simd simd = _fixture.Sdl.SimdAllocate(_length);
-        Assert.Equal(_length, simd.Length);
+        simd.Length.Should().Be(_length);
     }
 
     [Fact]
@@ -28,6 +30,6 @@ public class SimdTests
     {
         using Simd simd = _fixture.Sdl.SimdAllocate(_length);
         simd.Reallocate(_length / 2);
-        Assert.Equal(_length / 2, simd.Length);
+        simd.Length.Should().Be(_length / 2);
     }
 }

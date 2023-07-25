@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 
+using FluentAssertions;
+
 using Sdl2.Interop.Utilities;
 
 using Xunit;
@@ -24,10 +26,10 @@ public class SubsystemsTests
     {
         using (_fixture.Sdl.Initialize(actual))
         {
-            Assert.Equal(expected, _fixture.Sdl.WasInitialized());
+            _fixture.Sdl.WasInitialized().Should().Be(expected);
         }
 
-        Assert.Equal(Sdl.InitializeFlags.None, _fixture.Sdl.WasInitialized());
+        _fixture.Sdl.WasInitialized().Should().Be(Sdl.InitializeFlags.None);
     }
 
     [Theory]
@@ -38,12 +40,12 @@ public class SubsystemsTests
         using (Subsystems subsystems = _fixture.Sdl.Initialize(Sdl.InitializeFlags.Timer))
         {
             subsystems.Stop(Sdl.InitializeFlags.Timer);
-            Assert.Equal(Sdl.InitializeFlags.None, _fixture.Sdl.WasInitialized());
+            _fixture.Sdl.WasInitialized().Should().Be(Sdl.InitializeFlags.None);
             subsystems.Start(actual);
-            Assert.Equal(expected, _fixture.Sdl.WasInitialized());
+            _fixture.Sdl.WasInitialized().Should().Be(expected);
         }
 
-        Assert.Equal(Sdl.InitializeFlags.None, _fixture.Sdl.WasInitialized());
+        _fixture.Sdl.WasInitialized().Should().Be(Sdl.InitializeFlags.None);
     }
 
     [Theory]
@@ -53,12 +55,12 @@ public class SubsystemsTests
     {
         using (Subsystems subsystems = _fixture.Sdl.Initialize(actual))
         {
-            Assert.Equal(expected, _fixture.Sdl.WasInitialized());
+            _fixture.Sdl.WasInitialized().Should().Be(expected);
             subsystems.Stop(actual);
-            Assert.Equal(Sdl.InitializeFlags.None, _fixture.Sdl.WasInitialized());
+            _fixture.Sdl.WasInitialized().Should().Be(Sdl.InitializeFlags.None);
         }
 
-        Assert.Equal(Sdl.InitializeFlags.None, _fixture.Sdl.WasInitialized());
+        _fixture.Sdl.WasInitialized().Should().Be(Sdl.InitializeFlags.None);
     }
 
     public static IEnumerable<object[]> SubsystemsData()

@@ -1,5 +1,7 @@
 using System;
 
+using FluentAssertions;
+
 using Sdl2.Interop.Exceptions;
 
 using Xunit;
@@ -31,23 +33,20 @@ public class ClipboardTests
     [Fact]
     public void SdlClipboardText_ShouldThrowException_WhenVideoNotInitialized()
     {
-        Assert.Throws<NativeException>(() =>
-        {
-            _fixture.Sdl.ClipboardText = _testText;
-        });
+        Func<string> requestAction = () => _fixture.Sdl.ClipboardText = _testText;
+        requestAction.Should().Throw<NativeException>()
+            .WithMessage("Video subsystem must be initialized to set clipboard text");
     }
 
     [Fact]
-    public void SdlClipboardText_ShouldThrowException_WhenStringEmpty()
+    public void SdlClipboardText_ShouldReturnEmptyString_WhenStringEmpty()
     {
-        Assert.Throws<NativeException>(() =>
+        using (_fixture.Sdl.Initialize(Sdl.InitializeFlags.Video))
         {
-            using (_fixture.Sdl.Initialize(Sdl.InitializeFlags.Video))
-            {
-                ResetClipboardText();
-                return _fixture.Sdl.ClipboardText;
-            }
-        });
+            ResetClipboardText();
+            string result = _fixture.Sdl.ClipboardText;
+            result.Should().BeEmpty();
+        }
     }
 
     [Fact]
@@ -57,7 +56,7 @@ public class ClipboardTests
         {
             ResetClipboardText();
             _fixture.Sdl.ClipboardText = _testText;
-            Assert.Equal(_testText, _fixture.Sdl.ClipboardText);
+            _fixture.Sdl.ClipboardText.Should().Be(_testText);
         }
     }
 
@@ -67,55 +66,56 @@ public class ClipboardTests
         using (_fixture.Sdl.Initialize(Sdl.InitializeFlags.Video))
         {
             ResetClipboardText();
-            Assert.False(_fixture.Sdl.HasClipboardText);
+            _fixture.Sdl.HasClipboardText.Should().BeFalse();
             _fixture.Sdl.ClipboardText = _testText;
-            Assert.True(_fixture.Sdl.HasClipboardText);
+            _fixture.Sdl.HasClipboardText.Should().BeTrue();
         }
     }
 
     [Fact]
     public void SdlPrimarySelectionText_ShouldThrowException_WhenVideoNotInitialized()
     {
-        void Lambda<TException>() where TException : Exception
+        void Lambda<TException>(string message) where TException : Exception
         {
-            Assert.Throws<TException>(() =>
-            {
-                _fixture.Sdl.PrimarySelectionText = _testText;
-            });
+            Func<string> requestAction = () => _fixture.Sdl.PrimarySelectionText = _testText;
+            requestAction.Should().Throw<TException>().WithMessage(message);
         }
 
         if (_fixture.Sdl.Version >= new Version(2, 26, 0))
         {
-            Lambda<NativeException>();
+            Lambda<NativeException>("Video subsystem must be initialized to set primary selection text");
         }
         else
         {
-            Lambda<MinimumVersionRequiredNotMatchedException>();
+            Lambda<MinimumVersionRequiredNotMatchedException>(
+                $"The SDL2 export 'SDL_GetPrimarySelectionText' expected at least SDL v{new Version(2, 26, 0)} but v{_fixture.Sdl.Version} was found.");
         }
     }
 
     [Fact]
-    public void SdlPrimarySelectionText_ShouldThrowException_WhenStringEmpty()
+    public void SdlPrimarySelectionText_ShouldReturnEmptyString_WhenStringEmpty()
     {
-        void Lambda<TException>() where TException : Exception
+        if (_fixture.Sdl.Version >= new Version(2, 26, 0))
         {
-            Assert.Throws<TException>(() =>
+            using (_fixture.Sdl.Initialize(Sdl.InitializeFlags.Video))
+            {
+                ResetPrimarySelectionText();
+                _fixture.Sdl.PrimarySelectionText.Should().BeEmpty();
+            }
+        }
+        else
+        {
+            Action requestAction = () =>
             {
                 using (_fixture.Sdl.Initialize(Sdl.InitializeFlags.Video))
                 {
                     ResetPrimarySelectionText();
-                    return _fixture.Sdl.PrimarySelectionText;
+                    _fixture.Sdl.PrimarySelectionText.Should().BeEmpty();
                 }
-            });
-        }
+            };
 
-        if (_fixture.Sdl.Version >= new Version(2, 26, 0))
-        {
-            Lambda<NativeException>();
-        }
-        else
-        {
-            Lambda<MinimumVersionRequiredNotMatchedException>();
+            requestAction.Should().Throw<MinimumVersionRequiredNotMatchedException>().WithMessage(
+                $"The SDL2 export 'SDL_GetPrimarySelectionText' expected at least SDL v{new Version(2, 26, 0)} but v{_fixture.Sdl.Version} was found.");
         }
     }
 
@@ -128,13 +128,22 @@ public class ClipboardTests
             {
                 ResetPrimarySelectionText();
                 _fixture.Sdl.PrimarySelectionText = _testText;
-                Assert.Equal(_testText, _fixture.Sdl.PrimarySelectionText);
+                _fixture.Sdl.PrimarySelectionText.Should().Be(_testText);
             }
         }
         else
         {
-            Assert.Throws<MinimumVersionRequiredNotMatchedException>(() =>
-                _fixture.Sdl.PrimarySelectionText = _testText);
+            Action requestAction = () =>
+            {
+                using (_fixture.Sdl.Initialize(Sdl.InitializeFlags.Video))
+                {
+                    ResetPrimarySelectionText();
+                    _fixture.Sdl.PrimarySelectionText = _testText;
+                }
+            };
+
+            requestAction.Should().Throw<MinimumVersionRequiredNotMatchedException>().WithMessage(
+                $"The SDL2 export 'SDL_SetPrimarySelectionText' expected at least SDL v{new Version(2, 26, 0)} but v{_fixture.Sdl.Version} was found.");
         }
     }
 
@@ -146,15 +155,24 @@ public class ClipboardTests
             using (_fixture.Sdl.Initialize(Sdl.InitializeFlags.Video))
             {
                 ResetPrimarySelectionText();
-                Assert.False(_fixture.Sdl.HasPrimarySelectionText);
+                _fixture.Sdl.HasPrimarySelectionText.Should().BeFalse();
                 _fixture.Sdl.PrimarySelectionText = _testText;
-                Assert.True(_fixture.Sdl.HasPrimarySelectionText);
+                _fixture.Sdl.HasPrimarySelectionText.Should().BeTrue();
             }
         }
         else
         {
-            Assert.Throws<MinimumVersionRequiredNotMatchedException>(() =>
-                _ = _fixture.Sdl.HasPrimarySelectionText);
+            Action requestAction = () =>
+            {
+                using (_fixture.Sdl.Initialize(Sdl.InitializeFlags.Video))
+                {
+                    ResetPrimarySelectionText();
+                    _fixture.Sdl.PrimarySelectionText = _testText;
+                }
+            };
+
+            requestAction.Should().Throw<MinimumVersionRequiredNotMatchedException>().WithMessage(
+                $"The SDL2 export 'SDL_HasPrimarySelectionText' expected at least SDL v{new Version(2, 26, 0)} but v{_fixture.Sdl.Version} was found.");
         }
     }
 }

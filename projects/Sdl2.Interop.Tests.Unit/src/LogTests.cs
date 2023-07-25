@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
+using FluentAssertions;
+
 using Sdl2.Interop.Utilities;
 
 using Xunit;
@@ -29,7 +31,7 @@ public class LogTests
     {
         _fixture.Sdl.LogSetOutputFunction(Callback, new NullVoidPointer());
         _fixture.Sdl.LogGetOutputFunction(out _, out object userData);
-        Assert.Null(userData);
+        userData.Should().BeNull();
     }
 
     [Fact]
@@ -37,9 +39,8 @@ public class LogTests
     {
         _fixture.Sdl.LogSetOutputFunction(Callback, _logText);
         _fixture.Sdl.LogGetOutputFunction(out _, out object userData);
-        Assert.NotNull(userData);
-        Assert.True(userData is string);
-        Assert.Equal(_logText, userData as string);
+        userData.Should().NotBeNull();
+        userData.As<string>().Should().Be(_logText);
     }
 
     [Fact]
@@ -49,13 +50,13 @@ public class LogTests
         Array values = Enum.GetValues<MyCategories>();
         foreach (MyCategories category in values)
         {
-            Assert.Equal(Sdl.LogPriority.Error, _fixture.Sdl.LogGetPriority(category));
+            _fixture.Sdl.LogGetPriority(category).Should().Be(Sdl.LogPriority.Error);
         }
 
         _fixture.Sdl.LogResetPriorities();
         foreach (MyCategories category in values)
         {
-            Assert.Equal(Sdl.LogPriority.Critical, _fixture.Sdl.LogGetPriority(category));
+            _fixture.Sdl.LogGetPriority(category).Should().Be(Sdl.LogPriority.Critical);
         }
     }
 
@@ -65,7 +66,7 @@ public class LogTests
         Sdl.LogPriority priority)
     {
         _fixture.Sdl.LogSetPriority(category, priority);
-        Assert.Equal(priority, _fixture.Sdl.LogGetPriority(category));
+        _fixture.Sdl.LogGetPriority(category).Should().Be(priority);
         _fixture.Sdl.LogResetPriorities();
     }
 
@@ -76,10 +77,10 @@ public class LogTests
     {
         _fixture.Sdl.LogSetOutputFunction((data, category, priority, message) =>
         {
-            Assert.Null(data);
-            Assert.Equal(Sdl.LogCategory.Application, (Sdl.LogCategory)category);
-            Assert.Equal(Sdl.LogPriority.Information, priority);
-            Assert.Equal(_logText, message);
+            data.Should().BeNull();
+            category.As<Sdl.LogCategory>().Should().Be(Sdl.LogCategory.Application);
+            priority.Should().Be(Sdl.LogPriority.Information);
+            message.Should().Be(_logText);
         }, new NullVoidPointer());
 
         _fixture.Sdl.Log(_logText);
@@ -92,10 +93,10 @@ public class LogTests
     {
         _fixture.Sdl.LogSetOutputFunction((data, category, priority, message) =>
         {
-            Assert.Null(data);
-            Assert.Equal(Sdl.LogCategory.Application, (Sdl.LogCategory)category);
-            Assert.Equal(Sdl.LogPriority.Verbose, priority);
-            Assert.Equal(_logText, message);
+            data.Should().BeNull();
+            category.As<Sdl.LogCategory>().Should().Be(Sdl.LogCategory.Application);
+            priority.Should().Be(Sdl.LogPriority.Verbose);
+            message.Should().Be(_logText);
         }, new NullVoidPointer());
 
         _fixture.Sdl.LogVerbose(Sdl.LogCategory.Application, _logText);
@@ -108,10 +109,10 @@ public class LogTests
     {
         _fixture.Sdl.LogSetOutputFunction((data, category, priority, message) =>
         {
-            Assert.Null(data);
-            Assert.Equal(Sdl.LogCategory.Application, (Sdl.LogCategory)category);
-            Assert.Equal(Sdl.LogPriority.Debug, priority);
-            Assert.Equal(_logText, message);
+            data.Should().BeNull();
+            category.As<Sdl.LogCategory>().Should().Be(Sdl.LogCategory.Application);
+            priority.Should().Be(Sdl.LogPriority.Debug);
+            message.Should().Be(_logText);
         }, new NullVoidPointer());
 
         _fixture.Sdl.LogDebug(Sdl.LogCategory.Application, _logText);
@@ -124,10 +125,10 @@ public class LogTests
     {
         _fixture.Sdl.LogSetOutputFunction((data, category, priority, message) =>
         {
-            Assert.Null(data);
-            Assert.Equal(Sdl.LogCategory.Application, (Sdl.LogCategory)category);
-            Assert.Equal(Sdl.LogPriority.Information, priority);
-            Assert.Equal(_logText, message);
+            data.Should().BeNull();
+            category.As<Sdl.LogCategory>().Should().Be(Sdl.LogCategory.Application);
+            priority.Should().Be(Sdl.LogPriority.Information);
+            message.Should().Be(_logText);
         }, new NullVoidPointer());
 
         _fixture.Sdl.LogInformation(Sdl.LogCategory.Application, _logText);
@@ -140,10 +141,10 @@ public class LogTests
     {
         _fixture.Sdl.LogSetOutputFunction((data, category, priority, message) =>
         {
-            Assert.Null(data);
-            Assert.Equal(Sdl.LogCategory.Application, (Sdl.LogCategory)category);
-            Assert.Equal(Sdl.LogPriority.Warning, priority);
-            Assert.Equal(_logText, message);
+            data.Should().BeNull();
+            category.As<Sdl.LogCategory>().Should().Be(Sdl.LogCategory.Application);
+            priority.Should().Be(Sdl.LogPriority.Warning);
+            message.Should().Be(_logText);
         }, new NullVoidPointer());
 
         _fixture.Sdl.LogWarning(Sdl.LogCategory.Application, _logText);
@@ -156,10 +157,10 @@ public class LogTests
     {
         _fixture.Sdl.LogSetOutputFunction((data, category, priority, message) =>
         {
-            Assert.Null(data);
-            Assert.Equal(Sdl.LogCategory.Application, (Sdl.LogCategory)category);
-            Assert.Equal(Sdl.LogPriority.Error, priority);
-            Assert.Equal(_logText, message);
+            data.Should().BeNull();
+            category.As<Sdl.LogCategory>().Should().Be(Sdl.LogCategory.Application);
+            priority.Should().Be(Sdl.LogPriority.Error);
+            message.Should().Be(_logText);
         }, new NullVoidPointer());
 
         _fixture.Sdl.LogError(Sdl.LogCategory.Application, _logText);
@@ -172,10 +173,10 @@ public class LogTests
     {
         _fixture.Sdl.LogSetOutputFunction((data, category, priority, message) =>
         {
-            Assert.Null(data);
-            Assert.Equal(Sdl.LogCategory.Application, (Sdl.LogCategory)category);
-            Assert.Equal(Sdl.LogPriority.Critical, priority);
-            Assert.Equal(_logText, message);
+            data.Should().BeNull();
+            category.As<Sdl.LogCategory>().Should().Be(Sdl.LogCategory.Application);
+            priority.Should().Be(Sdl.LogPriority.Critical);
+            message.Should().Be(_logText);
         }, new NullVoidPointer());
 
         _fixture.Sdl.LogCritical(Sdl.LogCategory.Application, _logText);
@@ -188,10 +189,10 @@ public class LogTests
     {
         _fixture.Sdl.LogSetOutputFunction((data, category, priority, message) =>
         {
-            Assert.Null(data);
-            Assert.Equal(Sdl.LogCategory.Application, (Sdl.LogCategory)category);
-            Assert.Equal(Sdl.LogPriority.Information, priority);
-            Assert.Equal(_logText, message);
+            data.Should().BeNull();
+            category.As<Sdl.LogCategory>().Should().Be(Sdl.LogCategory.Application);
+            priority.Should().Be(Sdl.LogPriority.Information);
+            message.Should().Be(_logText);
         }, new NullVoidPointer());
 
         _fixture.Sdl.LogMessage(Sdl.LogCategory.Application, Sdl.LogPriority.Information, _logText);
