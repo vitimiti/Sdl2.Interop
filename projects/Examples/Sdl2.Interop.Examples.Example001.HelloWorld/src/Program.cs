@@ -2,7 +2,7 @@
 using Sdl2.Interop.Utilities;
 
 // Initialize the library.
-using Sdl sdl = new();
+using Sdl sdl = Sdl.GetInstance();
 
 // Set the log priorities.
 sdl.LogSetPriority(MyCategories.Library, Sdl.LogPriority.Information);
@@ -66,10 +66,10 @@ Sdl.PowerState powerState = sdl.GetPowerInformation(out int batterySecondsLeft, 
 sdl.LogInformation(MyCategories.Power, $"{"Power state",leftAlignment} {powerState,rightAlignment}");
 sdl.LogInformation(MyCategories.Power, "Battery information:");
 sdl.LogInformation(MyCategories.Power,
-    $"{"Seconds Left",leftAlignment} {(batterySecondsLeft == -1 ? "Unknown" : batterySecondsLeft),rightAlignment}");
+    $"{"Seconds Left",leftAlignment} {(batterySecondsLeft == -1 ? "Unknown" : $"{batterySecondsLeft}s"),rightAlignment}");
 
 sdl.LogInformation(MyCategories.Power,
-    $"{"Percentage Left",leftAlignment} {(batteryPercentageLeft == -1 ? "Unknown" : batteryPercentageLeft),rightAlignment}");
+    $"{"Percentage Left",leftAlignment} {(batteryPercentageLeft == -1 ? "Unknown" : $"{batteryPercentageLeft}%"),rightAlignment}");
 
 // Initialize SDL safely.
 using Subsystems subsystems = sdl.Initialize(Sdl.InitializeFlags.Video);

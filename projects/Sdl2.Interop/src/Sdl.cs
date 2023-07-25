@@ -15,19 +15,14 @@ namespace Sdl2.Interop;
 /// </remarks>
 public partial class Sdl : IDisposable
 {
-    /// <summary>Create a new <see cref="Sdl" /> class with default library names.</summary>
-    public Sdl()
-    {
-        Handle = NativeLibrary.Load(RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "SDL2.dll" :
-            RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ? "libSDL2.dylib" : "libSDL2.so",
-            Assembly.GetCallingAssembly(), DllImportSearchPath.AssemblyDirectory);
-    }
+    private static Sdl? s_instance;
 
-    /// <summary>Create a new <see cref="Sdl" /> class with a custom library path name.</summary>
-    /// <param name="libraryPath">A <see cref="string" /> with the library path and name.</param>
-    public Sdl(string libraryPath)
+    private Sdl(string? libraryPath)
     {
-        Handle = NativeLibrary.Load(libraryPath, Assembly.GetCallingAssembly(), DllImportSearchPath.AssemblyDirectory);
+        Handle = NativeLibrary.Load(
+            libraryPath ?? (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "SDL2.dll" :
+                RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ? "libSDL2.dylib" : "libSDL2.so"),
+            Assembly.GetCallingAssembly(), DllImportSearchPath.AssemblyDirectory);
     }
 
     internal IntPtr Handle { get; }
@@ -37,6 +32,17 @@ public partial class Sdl : IDisposable
     {
         ReleaseUnmanagedResources();
         GC.SuppressFinalize(this);
+    }
+
+    /// <summary>Get the <see cref="Sdl" /> class instance.</summary>
+    /// <param name="libraryPath">
+    ///     A <see cref="string" /> with the library path and name or <see langword="null" /> to use the
+    ///     default names and path.
+    /// </param>
+    /// <remarks><paramref name="libraryPath" /> is <see langword="null" /> by default.</remarks>
+    public static Sdl GetInstance(string? libraryPath = null)
+    {
+        return s_instance ??= new Sdl(libraryPath);
     }
 
     private void ReleaseUnmanagedResources()
