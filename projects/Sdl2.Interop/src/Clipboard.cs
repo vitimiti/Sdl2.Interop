@@ -7,8 +7,7 @@ namespace Sdl2.Interop;
 public partial class Sdl
 {
     /// <summary>Get/Set UTF-8 text into the clipboard.</summary>
-    /// <value>A <see cref="string" /> with the clipboard text.</value>
-    /// <exception cref="NativeException">When SDL is unable to get the clipboard text.</exception>
+    /// <value>A <see cref="string" /> with the clipboard text or a <see cref="string.Empty" /> if there is no text.</value>
     /// <exception cref="NativeException">When SDL is unable to set the clipboard text.</exception>
     /// <remarks>This property is available since SDL 2.0.0.</remarks>
     public string ClipboardText
@@ -18,7 +17,7 @@ public partial class Sdl
             string result = Common.GetExport<ClipboardDelegates.GetClipboardTextDelegate>(this, "SDL_GetClipboardText",
                 new Version(2, 0, 0))();
 
-            return result == string.Empty ? throw new NativeException(LastError) : result;
+            return result;
         }
         set
         {
@@ -38,8 +37,7 @@ public partial class Sdl
         Common.GetExport<ClipboardDelegates.HasClipboardText>(this, "SDL_HasClipboardText", new Version(2, 0, 0))();
 
     /// <summary>Get/Set UTF-8 text into the primary selection.</summary>
-    /// <value>A <see cref="string" /> with the primary selection text.</value>
-    /// <exception cref="NativeException">When SDL is unable to get the primary selection text.</exception>
+    /// <value>A <see cref="string" /> with the primary selection text or a <see cref="string.Empty" /> if there is no text.</value>
     /// <exception cref="NativeException">When SDL is unable to set the primary selection text.</exception>
     /// <remarks>This property is available since SDL 2.26.0.</remarks>
     public string PrimarySelectionText
@@ -50,7 +48,7 @@ public partial class Sdl
                 "SDL_GetPrimarySelectionText",
                 new Version(2, 26, 0))();
 
-            return result == string.Empty ? throw new NativeException(LastError) : result;
+            return result;
         }
         set
         {
