@@ -4,7 +4,7 @@ namespace Sdl2.Interop.Utilities;
 ///     An empty object that can be used to tell the library's marshalers that a C# object is meant to be a C null
 ///     void pointer.
 /// </summary>
-public class NullVoidPointer
+public sealed class NullVoidPointer
 {
     /// <summary>Gets the internal handle.</summary>
     /// <remarks>
