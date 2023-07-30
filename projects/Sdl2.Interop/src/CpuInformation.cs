@@ -341,8 +341,15 @@ public partial class Sdl
     /// <seealso cref="Simd.Reallocate" />
     public Simd SimdAllocate(uint length)
     {
-        return new Simd(this,
+        IntPtr handle =
             Common.GetExport<CpuInformationDelegates.SimdAllocDelegate>(this, "SDL_SIMDAlloc", new Version(2, 0, 10))(
-                new CULong(length)), length);
+                new CULong(length));
+
+        if (handle == IntPtr.Zero)
+        {
+            throw new NativeException(LastError);
+        }
+
+        return new Simd(this, handle, length);
     }
 }
