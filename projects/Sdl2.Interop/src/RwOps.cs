@@ -213,7 +213,7 @@ public partial class Sdl
 
     /// <summary>Load all the data from an SDL data stream.</summary>
     /// <param name="source">The <see cref="RwOps" /> data stream to load the data from.</param>
-    /// <param name="freeSource">Whether to free the <see cref="source" /> automatically or not.</param>
+    /// <param name="freeSource">Whether to free the <paramref name="source" /> automatically or not.</param>
     /// <returns>A new <see cref="MemoryBuffer" /> with the data from the <paramref name="source" />.</returns>
     /// <exception cref="NativeException">When SDL is unable to load the data.</exception>
     /// <remarks>
