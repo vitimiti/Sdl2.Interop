@@ -1,4 +1,6 @@
-﻿using Sdl2.Interop;
+﻿using System.Runtime.InteropServices;
+
+using Sdl2.Interop;
 using Sdl2.Interop.Utilities;
 
 // Initialize the library.
@@ -33,7 +35,8 @@ sdl.LogSetOutputFunction((data, category, priority, message) =>
 }, DateTime.Now);
 
 // Get the library version and running platform.
-sdl.LogInformation(MyCategories.Library, $"Running SDLv {sdl.Version} [{sdl.Revision}] on {sdl.Platform}");
+sdl.LogInformation(MyCategories.Library,
+    $"Running SDLv {sdl.Version} [{sdl.Revision}] on {sdl.Platform} ({RuntimeInformation.RuntimeIdentifier}) through {RuntimeInformation.FrameworkDescription}");
 
 // Print system information.
 const int leftAlignment = -20;
