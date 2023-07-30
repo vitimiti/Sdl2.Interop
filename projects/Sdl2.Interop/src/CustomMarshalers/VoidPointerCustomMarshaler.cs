@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
 using Sdl2.Interop.Utilities;
@@ -16,22 +17,24 @@ internal sealed class VoidPointerCustomMarshaler : ICustomMarshaler
         _isAllocated = isAllocated;
     }
 
-    public void CleanUpManagedData(object managedObj)
+    [SuppressMessage("ReSharper", "InconsistentNaming",
+        Justification = "The ICustomMarshaler interface is implemented like this")]
+    public void CleanUpManagedData(object ManagedObj)
     {
-        if (managedObj is IDisposable disposable && !_isAllocated)
+        if (ManagedObj is IDisposable disposable && !_isAllocated)
         {
             disposable.Dispose();
         }
     }
 
-    public void CleanUpNativeData(IntPtr nativeData)
+    public void CleanUpNativeData(IntPtr pNativeData)
     {
         if (_isAllocated)
         {
             return;
         }
 
-        GCHandle handle = GCHandle.FromIntPtr(nativeData);
+        GCHandle handle = GCHandle.FromIntPtr(pNativeData);
         handle.Free();
     }
 
@@ -40,25 +43,27 @@ internal sealed class VoidPointerCustomMarshaler : ICustomMarshaler
         return Marshal.SizeOf<object>();
     }
 
-    public IntPtr MarshalManagedToNative(object managedObj)
+    [SuppressMessage("ReSharper", "InconsistentNaming",
+        Justification = "The ICustomMarshaler interface is implemented like this")]
+    public IntPtr MarshalManagedToNative(object ManagedObj)
     {
-        if (managedObj is NullVoidPointer)
+        if (ManagedObj is NullVoidPointer)
         {
             return IntPtr.Zero;
         }
 
-        GCHandle handle = GCHandle.Alloc(managedObj);
+        GCHandle handle = GCHandle.Alloc(ManagedObj);
         return (IntPtr)handle;
     }
 
-    public object MarshalNativeToManaged(IntPtr nativeData)
+    public object MarshalNativeToManaged(IntPtr pNativeData)
     {
-        if (nativeData == IntPtr.Zero)
+        if (pNativeData == IntPtr.Zero)
         {
             return new NullVoidPointer();
         }
 
-        GCHandle handle = GCHandle.FromIntPtr(nativeData);
+        GCHandle handle = GCHandle.FromIntPtr(pNativeData);
         if (!handle.IsAllocated)
         {
             return new NullVoidPointer();
